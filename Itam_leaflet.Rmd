@@ -1,0 +1,13 @@
+---
+title: "My map"
+author: "Edith Reyes Loya"
+date: "11 de noviembre de 2016"
+output: html_document
+---
+
+```{r inicio, echo=FALSE}
+library(leaflet)
+my_map<-leaflet() %>% addTiles() %>%
+        addMarkers(lat=19.3445,lng=-99.1995,popup = "ITAM")
+my_map
+```
