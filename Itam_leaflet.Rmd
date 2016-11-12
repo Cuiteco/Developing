@@ -7,7 +7,18 @@ output: html_document
 
 ```{r inicio, echo=FALSE}
 library(leaflet)
-my_map<-leaflet() %>% addTiles() %>%
-        addMarkers(lat=19.3445,lng=-99.1995,popup = "ITAM")
+grupo<-vector(mode="character",length = 26)
+col=sample(c("green","red","blue","yellow"),26,replace=TRUE)
+for(i in 1:26){grupo[i]=ifelse(col[i]=="green","1",ifelse(col[i]=="red","2",ifelse(col[i]=="blue","3","4")))}
+df<-data.frame(col,
+               pop=runif(26,min=10,max=1000),
+               etiqueta=LETTERS,
+               lat=runif(26,min=19.33,max=19.36),
+               lng=runif(26,min=-99.21,max=-99.18))
+my_map<-df %>% leaflet() %>% addTiles() %>%
+         addCircleMarkers(clusterOption=markerClusterOptions(),
+         color=df$col,popup=df$etiqueta,lat=df$lat,lng=df$lng,
+         radius=sqrt(df$pop)) %>%
+         addLegend(labels=c("1","2","3","4"),colors=c("green","red","blue","yellow"))    
 my_map
 ```
