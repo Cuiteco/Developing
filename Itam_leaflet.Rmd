@@ -4,8 +4,9 @@ author: "Edith Reyes Loya"
 date: "11 de noviembre de 2016"
 output: html_document
 ---
+This is a project for Developing data products Course
 
-```{r inicio, echo=FALSE}
+```{r inicio, echo=TRUE}
 library(leaflet)
 grupo<-vector(mode="character",length = 26)
 col=sample(c("green","red","blue","yellow"),26,replace=TRUE)
@@ -17,7 +18,10 @@ df<-data.frame(col,
                lng=runif(26,min=-99.21,max=-99.18))
 my_map<-df %>% leaflet() %>% addTiles() %>%
          addCircleMarkers(clusterOption=markerClusterOptions(),
-         color=df$col,popup=df$etiqueta,lat=df$lat,lng=df$lng,
+         color=df$col,
+         popup=paste("Name:",df$etiqueta,"Group:",grupo,
+                     "Size:",format(df$pop,digits=2)),
+         lat=df$lat,lng=df$lng,
          radius=sqrt(df$pop)) %>%
          addLegend(labels=c("1","2","3","4"),colors=c("green","red","blue","yellow"))    
 my_map
